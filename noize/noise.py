@@ -1,5 +1,13 @@
 import cv2
 import numpy as np
+from PIL import Image
+
+
+def cmd_sp(img_path, prob, output_path):
+    img = Image.open(img_path)
+    noisy_im_arr = salt_and_pepper(np.array(img), prob)
+    noisy_im = Image.fromarray(noisy_im_arr) 
+    noisy_im.save(output_path)
 
 
 def salt_and_pepper(image, prob):
