@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 from scipy import stats
-from noize import util
 
 
 def __periodic_noise(im, angle, wavelength):
@@ -37,12 +36,14 @@ def periodic(image, mode, angle, wavelength):
     return (noise_im*255).astype(np.uint8)
 
 
-def salt_and_pepper(image, prob):
+def salt_and_pepper(image, prob, seed=None):
     """Apply salt and pepper noise to given grayscale or rgb image with given prob."""
-    output = image.copy()
+    if seed is not None:
+        np.random.seed(seed)
 
+    output = image.copy()
     def sp(im, prob):
-        probs = np.random.random(im.shape[:2])
+        probs = np.random.random(im.shape[:2], seed=seed)
         im[probs < (prob / 2)] = 0
         im[probs > 1 - (prob / 2)] = 255
         return im
@@ -57,24 +58,26 @@ def salt_and_pepper(image, prob):
     return output
 
 
-def gaussian(image, mean, var):
+def gaussian(image, mean, var, seed=None):
+    if seed is not None:
+        np.random.seed(seed)
     return __noise_with_pdf(image, np.random.normal, loc=mean, scale=var**0.5)
 
 
-def rayleigh(image, loc, scale):
-    return __noise_with_pdf(image, stats.rayleigh.rvs, loc=loc, scale=scale)
+def rayleigh(image, loc, scale, seed):
+    return __noise_with_pdf(image, stats.rayleigh.rvs, loc=loc, scale=scale, random_state=seed)
 
 
-def erlang(image, a, loc, scale):
-    return __noise_with_pdf(image, stats.gamma.rvs, a=a, loc=loc, scale=scale)
+def erlang(image, a, loc, scale, seed):
+    return __noise_with_pdf(image, stats.gamma.rvs, a=a, loc=loc, scale=scale, random_state=seed)
 
 
-def exponential(image, loc, scale):
-    return __noise_with_pdf(image, stats.expon.rvs, loc=loc, scale=scale)
+def exponential(image, loc, scale, seed):
+    return __noise_with_pdf(image, stats.expon.rvs, loc=loc, scale=scale, random_state=seed)
 
 
-def uniform(image, loc, scale):
-    return __noise_with_pdf(image, stats.uniform.rvs, loc=loc, scale=scale)
+def uniform(image, loc, scale, seed):
+    return __noise_with_pdf(image, stats.uniform.rvs, loc=loc, scale=scale, random_state=seed)
 
 
 def __noise_with_pdf(im_arr, pdf, **kwargs):

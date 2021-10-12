@@ -52,6 +52,10 @@ def main() -> None:
         "-p", "--probability", type=float, default=0.1,
         help="Probability of the noise. Default 0.1"
     )
+    parser_sp.add_argument(
+        "--seed", type=int, default=None,
+        help="Seed value, default None."
+    )
     parser_sp.set_defaults(command=CMD_SP)
 
     # gaussian
@@ -72,6 +76,10 @@ def main() -> None:
         "-v", "--var", type=float, default=0.01,
         help="Variance of the distribution. Default 0.01"
     )
+    parser_sp.add_argument(
+        "--seed", type=int, default=None,
+        help="Seed value, default None."
+    )
     parser_sp.set_defaults(command=CMD_GSS)
 
     # rayleigh
@@ -91,6 +99,10 @@ def main() -> None:
     parser_sp.add_argument(
         "-s", "--scale", type=float, default=0.1,
         help="Scale of the distribution. Default 0.1"
+    )
+    parser_sp.add_argument(
+        "--seed", type=int, default=None,
+        help="Seed value, default None."
     )
     parser_sp.set_defaults(command=CMD_RAY)
 
@@ -116,6 +128,10 @@ def main() -> None:
         "-s", "--scale", type=float, default=0.1,
         help="Scale of the distribution. Default 0.1"
     )
+    parser_sp.add_argument(
+        "--seed", type=int, default=None,
+        help="Seed value, default None."
+    )
     parser_sp.set_defaults(command=CMD_ER)
 
     # exponential 
@@ -136,6 +152,10 @@ def main() -> None:
         "-s", "--scale", type=float, default=0.1,
         help="Scale of the distribution. Default 0.1"
     )
+    parser_sp.add_argument(
+        "--seed", type=int, default=None,
+        help="Seed value, default None."
+    )
     parser_sp.set_defaults(command=CMD_EXP)
 
     # uniform 
@@ -155,6 +175,10 @@ def main() -> None:
     parser_sp.add_argument(
         "-s", "--scale", type=float, default=1.0,
         help="Scale of the distribution. Default 1.0"
+    )
+    parser_sp.add_argument(
+        "--seed", type=int, default=None,
+        help="Seed value, default None."
     )
     parser_sp.set_defaults(command=CMD_UNF)
 
