@@ -22,7 +22,7 @@ setup(
     ],
     packages=find_packages(exclude="tests",),
     include_package_data=True,
-    install_requires=["numpy==1.19.4","opencv-python==4.4.0.46"],
+    install_requires=["numpy==1.19.4"],
     entry_points={
         "console_scripts": [
             "noize=noize.__main__:main",

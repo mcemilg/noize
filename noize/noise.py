@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 from scipy import stats
 
@@ -38,12 +37,9 @@ def periodic(image, mode, angle, wavelength):
 
 def salt_and_pepper(image, prob, seed=None):
     """Apply salt and pepper noise to given grayscale or rgb image with given prob."""
-    if seed is not None:
-        np.random.seed(seed)
-
     output = image.copy()
     def sp(im, prob):
-        probs = np.random.random(im.shape[:2], seed=seed)
+        probs = np.random.random(im.shape[:2])
         im[probs < (prob / 2)] = 0
         im[probs > 1 - (prob / 2)] = 255
         return im
@@ -51,10 +47,8 @@ def salt_and_pepper(image, prob, seed=None):
     if len(image.shape) == 2:
         output = sp(output, prob)
     else:
-        output = np.array(cv2.split(output))
-        for im in output:
-            sp(im, prob)
-        output = np.array(cv2.merge(output))
+        for i in range(3):
+            output[:,:,i] = sp(output[:,:,i], prob)
     return output
 
 
