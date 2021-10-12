@@ -183,8 +183,7 @@ def main() -> None:
     parser_sp.set_defaults(command=CMD_UNF)
 
     args = parser.parse_args()
-
-    apply_cmd(args.command, args)
+    apply_cmd(args)
 
 
 

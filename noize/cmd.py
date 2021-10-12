@@ -12,7 +12,7 @@ CMD_EXP = "exponential"
 CMD_UNF = "uniform"
 
 
-def apply_cmd(cmd, args):
+def apply_cmd(args):
     img = Image.open(args.img)
 
     if args.command == CMD_PER:
