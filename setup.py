@@ -1,6 +1,5 @@
-from importlib.metadata import entry_points
 import pathlib
-from setuptools import setup
+from setuptools import find_packages, setup
 
 HERE = pathlib.Path(__file__).parent
 
@@ -21,7 +20,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["noize"],
+    packages=find_packages(exclude="tests",),
     include_package_data=True,
     install_requires=["numpy==1.19.4","opencv-python==4.4.0.46"],
     entry_points={
