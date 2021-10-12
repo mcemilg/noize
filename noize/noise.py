@@ -38,8 +38,9 @@ def periodic(image, mode, angle, wavelength):
 def salt_and_pepper(image, prob, seed=None):
     """Apply salt and pepper noise to given grayscale or rgb image with given prob."""
     output = image.copy()
-    def sp(im, prob):
-        probs = np.random.random(im.shape[:2])
+    rng = np.random.default_rng(seed)
+    def sp(im, prob, rng):
+        probs = rng.random(im.shape[:2])
         im[probs < (prob / 2)] = 0
         im[probs > 1 - (prob / 2)] = 255
         return im
@@ -48,14 +49,13 @@ def salt_and_pepper(image, prob, seed=None):
         output = sp(output, prob)
     else:
         for i in range(3):
-            output[:,:,i] = sp(output[:,:,i], prob)
+            output[:,:,i] = sp(output[:,:,i], prob, rng)
     return output
 
 
 def gaussian(image, mean, var, seed=None):
-    if seed is not None:
-        np.random.seed(seed)
-    return __noise_with_pdf(image, np.random.normal, loc=mean, scale=var**0.5)
+    rng = np.random.default_rng(seed)
+    return __noise_with_pdf(image, rng.normal, loc=mean, scale=var**0.5)
 
 
 def rayleigh(image, loc, scale, seed):
