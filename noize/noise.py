@@ -26,17 +26,17 @@ def periodic(image, mode, angle, wavelength):
     util.check_input(image, accepted_shapes=("RGB"))
     if mode == "R":
         noise_im = im_arr.copy()
-        noise_im[:,:,0] = __periodic_noise(noise_im[:,:,0], angle, wavelength)
+        noise_im[:, :, 0] = __periodic_noise(noise_im[:, :, 0], angle, wavelength)
     elif mode == "G":
         noise_im = im_arr.copy()
-        noise_im[:,:,1] = __periodic_noise(noise_im[:,:,1], angle, wavelength)
+        noise_im[:, :, 1] = __periodic_noise(noise_im[:, :, 1], angle, wavelength)
     elif mode == "B":
         noise_im = im_arr.copy()
-        noise_im[:,:,2] = __periodic_noise(noise_im[:,:,2], angle, wavelength)
+        noise_im[:, :, 2] = __periodic_noise(noise_im[:, :, 2], angle, wavelength)
     elif mode == "+":
         noise_im = im_arr.copy()
         for i in range(3):
-            noise_im[:,:,i] = __periodic_noise(noise_im[:,:,i], angle, wavelength)
+            noise_im[:, :, i] = __periodic_noise(noise_im[:, :, i], angle, wavelength)
     else:
         raise util.BadModeException("Bad mode {}.".format(mode))
     return (noise_im*255).astype(np.uint8)
@@ -47,6 +47,7 @@ def salt_and_pepper(image, prob, seed=None):
     util.check_input(image)
     output = image.copy()
     rng = np.random.default_rng(seed)
+
     def sp(im, prob, rng):
         probs = rng.random(im.shape[:2])
         im[probs < (prob / 2)] = 0
@@ -57,7 +58,7 @@ def salt_and_pepper(image, prob, seed=None):
         output = sp(output, prob, rng)
     elif len(image.shape) == 3:
         for i in range(image.shape[2]):
-            output[:,:,i] = sp(output[:,:,i], prob, rng)
+            output[:, :, i] = sp(output[:, :, i], prob, rng)
     return output.astype(np.uint8)
 
 

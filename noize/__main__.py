@@ -9,7 +9,7 @@ def main() -> None:
     )
     parser.add_argument(
         "-v", "--version", action="version",
-        version = f"{parser.prog} version {__version__}"
+        version=f"{parser.prog} version {__version__}"
     )
     subparsers = parser.add_subparsers(help="Apply different kind of noise algorithms.")
 
@@ -106,7 +106,7 @@ def main() -> None:
     )
     parser_sp.set_defaults(command=CMD_RAY)
 
-    # erlang 
+    # erlang
     parser_sp = subparsers.add_parser(CMD_ER, help="Apply erlang (gamma) noise.")
     parser_sp.add_argument(
         "img", type=str,
@@ -134,7 +134,7 @@ def main() -> None:
     )
     parser_sp.set_defaults(command=CMD_ER)
 
-    # exponential 
+    # exponential
     parser_sp = subparsers.add_parser(CMD_EXP, help="Apply exponential noise.")
     parser_sp.add_argument(
         "img", type=str,
@@ -158,7 +158,7 @@ def main() -> None:
     )
     parser_sp.set_defaults(command=CMD_EXP)
 
-    # uniform 
+    # uniform
     parser_sp = subparsers.add_parser(CMD_UNF, help="Apply uniform noise.")
     parser_sp.add_argument(
         "img", type=str,
@@ -184,8 +184,6 @@ def main() -> None:
 
     args = parser.parse_args()
     apply_cmd(args)
-
-
 
 
 if __name__ == "__main__":

@@ -7,4 +7,3 @@ def test_scale_noise():
     arr_scaled = util.scale_noise(arr)
     assert arr_scaled.max() <= 1
     assert arr_scaled.min() >= 0
-

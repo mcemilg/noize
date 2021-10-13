@@ -30,5 +30,5 @@ def apply_cmd(args):
     elif args.command == CMD_UNF:
         noisy_im = exponential(np.array(img), args.loc, args.scale, args.seed)
 
-    noisy_im = Image.fromarray(noisy_im) 
+    noisy_im = Image.fromarray(noisy_im)
     noisy_im.save(args.output)

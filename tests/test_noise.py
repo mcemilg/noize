@@ -16,27 +16,27 @@ def test_mode_periodic():
     assert len(nz.shape) == 2
 
     nz = noise.periodic(im, "R", angle, wl)
-    assert nz[:,:,0].sum() != 0
-    assert nz[:,:,1].sum() == 0
-    assert nz[:,:,2].sum() == 0
+    assert nz[:, :, 0].sum() != 0
+    assert nz[:, :, 1].sum() == 0
+    assert nz[:, :, 2].sum() == 0
 
     nz = noise.periodic(im, "G", angle, wl)
-    assert nz[:,:,0].sum() == 0
-    assert nz[:,:,1].sum() != 0
-    assert nz[:,:,2].sum() == 0
+    assert nz[:, :, 0].sum() == 0
+    assert nz[:, :, 1].sum() != 0
+    assert nz[:, :, 2].sum() == 0
 
     nz = noise.periodic(im, "B", angle, wl)
-    assert nz[:,:,0].sum() == 0
-    assert nz[:,:,1].sum() == 0
-    assert nz[:,:,2].sum() != 0
+    assert nz[:, :, 0].sum() == 0
+    assert nz[:, :, 1].sum() == 0
+    assert nz[:, :, 2].sum() != 0
 
     nz = noise.periodic(im, "+", angle, wl)
-    assert nz[:,:,0].sum() != 0
-    assert nz[:,:,1].sum() != 0
-    assert nz[:,:,2].sum() != 0
+    assert nz[:, :, 0].sum() != 0
+    assert nz[:, :, 1].sum() != 0
+    assert nz[:, :, 2].sum() != 0
 
     with pytest.raises(util.BadModeException):
-        nz = noise.periodic(im, "QWE", angle, wl)
+        noise.periodic(im, "QWE", angle, wl)
 
 
 def test_bad_shape_periodic():
@@ -45,12 +45,12 @@ def test_bad_shape_periodic():
     im_shape = (128, 128, 4)
     im = np.zeros(im_shape)
     with pytest.raises(util.BadShapeException):
-        nz = noise.periodic(im, "+", angle, wl)
+        noise.periodic(im, "+", angle, wl)
 
     im_shape = (128, 128)
     im = np.zeros(im_shape)
     with pytest.raises(util.BadShapeException):
-        nz = noise.periodic(im, "+", angle, wl)
+        noise.periodic(im, "+", angle, wl)
 
 
 def test_wavelength_periodic():
