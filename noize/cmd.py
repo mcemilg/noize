@@ -1,3 +1,4 @@
+import argparse
 import numpy as np
 from PIL import Image
 from noize.noise import exponential, salt_and_pepper, rayleigh, gaussian, erlang, periodic
@@ -12,7 +13,7 @@ CMD_EXP = "exponential"
 CMD_UNF = "uniform"
 
 
-def apply_cmd(args):
+def apply_cmd(args: argparse.Namespace) -> None:
     img = Image.open(args.img)
 
     if args.command == CMD_PER:

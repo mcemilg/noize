@@ -1,4 +1,5 @@
 import numpy as np
+from typing import Tuple
 
 
 class BadModeException(Exception):
@@ -9,12 +10,12 @@ class BadShapeException(Exception):
     pass
 
 
-def scale_noise(noise):
+def scale_noise(noise: np.ndarray) -> np.ndarray:
     """scale to [0,1]"""
     return (noise - np.min(noise))/np.ptp(noise)
 
 
-def check_input(im, accepted_shapes=("gray", "RGB", "custom")):
+def check_input(im: np.ndarray, accepted_shapes: Tuple=("gray", "RGB", "custom")) -> None:
     if not isinstance(im, np.ndarray):
         raise BadShapeException("Input should be np.array.")
 

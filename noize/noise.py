@@ -1,9 +1,10 @@
 import numpy as np
 from scipy import stats
 from noize import util
+from typing import Callable
 
 
-def __periodic_noise(im, angle, wavelength):
+def __periodic_noise(im: np.ndarray, angle: int, wavelength: int) -> np.ndarray:
     x = np.arange(0, im.shape[0])
     y = np.arange(0, im.shape[1])
     xv, yv = np.meshgrid(x, y)
@@ -14,7 +15,7 @@ def __periodic_noise(im, angle, wavelength):
     return noise_im
 
 
-def periodic(image, mode, angle, wavelength):
+def periodic(image: np.ndarray, mode: str, angle: int, wavelength: int) -> np.ndarray:
     util.check_input(image, accepted_shapes=("gray", "RGB"))
     im_arr = image/255.0
     if mode == "gray":
@@ -42,7 +43,7 @@ def periodic(image, mode, angle, wavelength):
     return (noise_im*255).astype(np.uint8)
 
 
-def salt_and_pepper(image, prob, seed=None):
+def salt_and_pepper(image: np.ndarray, prob: float, seed: int=None) -> np.ndarray:
     """Apply salt and pepper noise to given grayscale or rgb image with given prob."""
     util.check_input(image)
     output = image.copy()
@@ -62,28 +63,28 @@ def salt_and_pepper(image, prob, seed=None):
     return output.astype(np.uint8)
 
 
-def gaussian(image, mean, var, seed=None):
+def gaussian(image: np.ndarray, mean: float, var: float, seed: int=None) -> np.ndarray:
     rng = np.random.default_rng(seed)
     return __noise_with_pdf(image, rng.normal, loc=mean, scale=var**0.5)
 
 
-def rayleigh(image, loc, scale, seed):
+def rayleigh(image: np.ndarray, loc: float, scale: float, seed: int=None) -> np.ndarray:
     return __noise_with_pdf(image, stats.rayleigh.rvs, loc=loc, scale=scale, random_state=seed)
 
 
-def erlang(image, a, loc, scale, seed):
+def erlang(image: np.ndarray, a: int, loc: float, scale: float, seed: int=None) -> np.ndarray:
     return __noise_with_pdf(image, stats.gamma.rvs, a=a, loc=loc, scale=scale, random_state=seed)
 
 
-def exponential(image, loc, scale, seed):
+def exponential(image: np.ndarray, loc: float, scale: float, seed: int=None) -> np.ndarray:
     return __noise_with_pdf(image, stats.expon.rvs, loc=loc, scale=scale, random_state=seed)
 
 
-def uniform(image, loc, scale, seed):
+def uniform(image: np.ndarray, loc: float, scale: float, seed: int=None) -> np.ndarray:
     return __noise_with_pdf(image, stats.uniform.rvs, loc=loc, scale=scale, random_state=seed)
 
 
-def __noise_with_pdf(im_arr, pdf, **kwargs):
+def __noise_with_pdf(im_arr: np.ndarray, pdf: Callable, **kwargs) -> np.ndarray:
     util.check_input(im_arr)
     im_arr = im_arr/255.0
     noise = pdf(**kwargs, size=im_arr.shape)
