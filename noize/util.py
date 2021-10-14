@@ -15,7 +15,7 @@ def scale_noise(noise: np.ndarray) -> np.ndarray:
     return (noise - np.min(noise))/np.ptp(noise)
 
 
-def check_input(im: np.ndarray, accepted_shapes: Tuple=("gray", "RGB", "custom")) -> None:
+def check_input(im: np.ndarray, accepted_shapes: Tuple[str]=("gray", "RGB", "custom")) -> None:
     if not isinstance(im, np.ndarray):
         raise BadShapeException("Input should be np.array.")
 
