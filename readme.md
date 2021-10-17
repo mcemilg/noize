@@ -6,10 +6,10 @@ Various noises with parameters can be applied for both grayscale and RGB images.
 Here is an example, from left to right, original, salt and pepper, gaussian, periodic versions of an image.
 
 <p align="center">
-  <img src="doc/lenna.png" width="22%" />
-  <img src="doc/sp.png" width="22%" /> 
-  <img src="doc/gaussian.png" width="22%" />
-  <img src="doc/periodic.png" width="22%" />
+  <img src="https://raw.githubusercontent.com/mcemilg/noize/master/doc/lenna.png" width="22%" />
+  <img src="https://raw.githubusercontent.com/mcemilg/noize/master/doc/sp.png" width="22%" /> 
+  <img src="https://raw.githubusercontent.com/mcemilg/noize/master/doc/gaussian.png" width="22%" />
+  <img src="https://raw.githubusercontent.com/mcemilg/noize/master/doc/periodic.png" width="22%" />
 </p>
 
 Noize requiers Python 3.8 or newer versions, however some or all methods can be used older Python 3 versions.
@@ -56,7 +56,7 @@ out_im = Image.fromarray(out)
 out_im.save("output.png")
 ```
 
-Checkout the noise module [documentation](doc/doc.md) for more.
+Checkout the noise module [documentation](https://github.com/mcemilg/noize/blob/master/doc/doc.md) for more.
 
 
 ## License
